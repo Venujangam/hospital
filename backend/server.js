@@ -11,12 +11,6 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());                // ⭐ ADD THIS
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "frontend")));
-app.use(
-  "/ui-assets",
-  express.static(
-    "C:\\Users\\Medha Trust\\.cursor\\projects\\c-Users-Medha-Trust-Downloads-hospital-management-main-1-hospital-management-main\\assets"
-  )
-);
 
 // MongoDB connection
 const MONGO_URI = process.env.MONGO_URI ||
