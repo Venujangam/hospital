@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital Management UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <h1>CareFlow</h1>
+      <p>Hospital Management</p>
+      <nav>
+        <a href="#overview" class="active nav-link" data-view="overview">Overview</a>
+        <a href="#patients" class="nav-link" data-view="patients">Patients</a>
+        <a href="#doctors" class="nav-link" data-view="doctors">Doctors</a>
+        <a href="#appointments" class="nav-link" data-view="appointments">Appointments</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="topbar view-section" id="overviewSection">
+        <div>
+          <h2>Welcome back, Admin</h2>
+          <p>Manage patient records, doctors, and appointments in one place.</p>
+        </div>
+        <div class="topbar-actions">
+          <span id="authStatus" class="auth-status">Not logged in</span>
+          <button class="primary-btn" id="refreshBtn">Refresh Data</button>
+          <button class="primary-btn logout-btn" id="logoutBtn">Logout</button>
+        </div>
+      </header>
+
+      <section class="stats-grid view-section" id="statsSection">
+        <article class="stat-card">
+          <h3>Total Patients</h3>
+          <p id="patientsCount">0</p>
+        </article>
+        <article class="stat-card">
+          <h3>Total Doctors</h3>
+          <p id="doctorsCount">0</p>
+        </article>
+        <article class="stat-card">
+          <h3>Total Appointments</h3>
+          <p id="appointmentsCount">0</p>
+        </article>
+      </section>
+
+      <section class="panel view-section" id="patients">
+        <div class="panel-head">
+          <h3>Patients</h3>
+          <span>Connected to <code>/patients</code></span>
+        </div>
+        <img
+          class="section-image"
+          src="/ui-assets/c__Users_Medha_Trust_AppData_Roaming_Cursor_User_workspaceStorage_39f2ea5a7c63c3c8015288cf632f0359_images_image-a558bf42-7133-4f37-96af-52f83f225cdf.png"
+          alt="Patient section"
+        />
+        <form id="patientForm" class="inline-form">
+          <input type="text" id="patientName" placeholder="Patient name" required />
+          <input type="number" id="patientAge" placeholder="Age" required />
+          <select id="patientGender" required>
+            <option value="">Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <button type="submit" class="primary-btn">Add Patient</button>
+        </form>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+              </tr>
+            </thead>
+            <tbody id="patientsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel view-section" id="doctors">
+          <div class="panel-head">
+            <h3>Doctors</h3>
+            <span>From <code>/doctors</code></span>
+          </div>
+          <img
+            class="section-image"
+            src="/ui-assets/c__Users_Medha_Trust_AppData_Roaming_Cursor_User_workspaceStorage_39f2ea5a7c63c3c8015288cf632f0359_images_image-bac472b6-1cf2-432c-b1ee-2833936eda68.png"
+            alt="Doctor section"
+          />
+          <form id="doctorForm" class="inline-form doctor-form">
+            <input type="text" id="doctorName" placeholder="Doctor name" required />
+            <input type="text" id="doctorSpecialization" placeholder="Specialization" required />
+            <button type="submit" class="primary-btn">Add Doctor</button>
+          </form>
+          <ul id="doctorsList" class="list"></ul>
+      </section>
+
+      <section class="panel view-section" id="appointments">
+          <div class="panel-head">
+            <h3>Appointments</h3>
+            <span>From <code>/appointments</code></span>
+          </div>
+          <img
+            class="section-image"
+            src="/ui-assets/c__Users_Medha_Trust_AppData_Roaming_Cursor_User_workspaceStorage_39f2ea5a7c63c3c8015288cf632f0359_images_image-d94708fe-6022-4c11-8def-fa1dde68760e.png"
+            alt="Appointments section"
+          />
+          <form id="appointmentForm" class="inline-form appointment-form">
+            <input type="text" id="appointmentPatientName" placeholder="Patient name" required />
+            <input type="text" id="appointmentDoctorName" placeholder="Doctor name" required />
+            <input type="date" id="appointmentDate" required />
+            <input type="time" id="appointmentTime" required />
+            <button type="submit" class="primary-btn">Book</button>
+          </form>
+          <ul id="appointmentsList" class="list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="./script.js"></script>
+</body>
+</html>
