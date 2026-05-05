@@ -12,11 +12,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "frontend")));
 
-// MongoDB connection — uses local in-memory DB if no MONGO_URI is set
+// MongoDB connection
+// - Production (Render): uses MONGO_URI environment variable
+// - Local dev: falls back to in-memory MongoDB if MONGO_URI not set
 async function connectDB() {
   let uri = process.env.MONGO_URI;
 
   if (!uri) {
+    if (process.env.NODE_ENV === "production") {
+      console.error("❌ MONGO_URI is required in production. Set it in Render environment variables.");
+      process.exit(1);
+    }
     console.log("No MONGO_URI found — starting local in-memory MongoDB...");
     const { MongoMemoryServer } = require("mongodb-memory-server");
     const mongod = await MongoMemoryServer.create();
@@ -28,7 +34,10 @@ async function connectDB() {
   console.log("MongoDB Connected ✅");
 }
 
-connectDB().catch((err) => console.error("MongoDB connection error:", err));
+connectDB().catch((err) => {
+  console.error("MongoDB connection error:", err);
+  process.exit(1);
+});
 
 // Use shared models from the models directory
 const Patient = require("./models/Patient");

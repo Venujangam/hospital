@@ -1,15 +1,19 @@
 {
-  "name": "backend",
+  "name": "careflow-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "CareFlow Hospital Management System - Backend API",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node server.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["hospital", "management", "express", "mongodb"],
+  "author": "Venu",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
@@ -19,6 +23,6 @@
     "mongoose": "^9.1.5"
   },
   "devDependencies": {
-    "mongodb-memory-server": "^11.1.0"
+    "mongodb-memory-server": "^10.1.4"
   }
 }
