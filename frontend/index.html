@@ -3,132 +3,427 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hospital Management UI</title>
+  <title>CareFlow — Hospital Management</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar">
-      <h1>CareFlow</h1>
-      <p>Hospital Management</p>
+<div class="app-shell">
+
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">
+        <div class="logo-icon">🏥</div>
+        <div><h1>CareFlow</h1><p>Hospital Management</p></div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Main Menu</div>
       <nav>
-        <a href="#overview" class="active nav-link" data-view="overview">Overview</a>
-        <a href="#patients" class="nav-link" data-view="patients">Patients</a>
-        <a href="#doctors" class="nav-link" data-view="doctors">Doctors</a>
-        <a href="#appointments" class="nav-link" data-view="appointments">Appointments</a>
+        <a href="#" class="nav-link active" data-view="overview">
+          <span class="nav-icon">🏠</span> Overview
+        </a>
+        <a href="#" class="nav-link" data-view="patients">
+          <span class="nav-icon">🧑‍⚕️</span> Patients
+        </a>
+        <a href="#" class="nav-link" data-view="doctors">
+          <span class="nav-icon">👨‍⚕️</span> Doctors
+        </a>
+        <a href="#" class="nav-link" data-view="appointments">
+          <span class="nav-icon">📅</span> Appointments
+        </a>
+        <a href="#" class="nav-link" data-view="payments">
+          <span class="nav-icon">💳</span> Payments
+        </a>
       </nav>
-    </aside>
-
-    <main class="content">
-      <header class="topbar view-section" id="overviewSection">
-        <div>
-          <h2>Welcome back, Admin</h2>
-          <p>Manage patient records, doctors, and appointments in one place.</p>
+    </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="avatar" id="sidebarAvatar">A</div>
+        <div class="user-info">
+          <div class="user-name" id="sidebarName">Admin</div>
+          <div class="user-role" id="sidebarRole">Administrator</div>
         </div>
-        <div class="topbar-actions">
-          <span id="authStatus" class="auth-status">Not logged in</span>
-          <button class="primary-btn" id="refreshBtn">Refresh Data</button>
-          <button class="primary-btn logout-btn" id="logoutBtn">Logout</button>
-        </div>
-      </header>
+      </div>
+    </div>
+  </aside>
 
-      <section class="stats-grid view-section" id="statsSection">
-        <article class="stat-card">
-          <h3>Total Patients</h3>
-          <p id="patientsCount">0</p>
-        </article>
-        <article class="stat-card">
-          <h3>Total Doctors</h3>
-          <p id="doctorsCount">0</p>
-        </article>
-        <article class="stat-card">
-          <h3>Total Appointments</h3>
-          <p id="appointmentsCount">0</p>
-        </article>
-      </section>
+  <!-- ══════════════ MAIN CONTENT ══════════════ -->
+  <main class="content">
 
-      <section class="panel view-section" id="patients">
-        <div class="panel-head">
-          <h3>Patients</h3>
-          <span>Connected to <code>/patients</code></span>
-        </div>
-        <img
-          class="section-image"
-          src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=1200&q=80"
-          alt="Patient section"
-        />
-        <form id="patientForm" class="inline-form">
-          <input type="text" id="patientName" placeholder="Patient name" required />
-          <input type="number" id="patientAge" placeholder="Age" required />
-          <select id="patientGender" required>
-            <option value="">Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-          <button type="submit" class="primary-btn">Add Patient</button>
-        </form>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Gender</th>
-              </tr>
-            </thead>
-            <tbody id="patientsTableBody"></tbody>
-          </table>
-        </div>
-      </section>
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h2 id="pageTitle">Dashboard Overview</h2>
+        <p id="pageSubtitle">Welcome back! Here's what's happening today.</p>
+      </div>
+      <div class="topbar-right">
+        <div class="auth-badge"><span class="dot"></span><span id="authStatus">Not logged in</span></div>
+        <button class="btn btn-ghost" id="refreshBtn">🔄 Refresh</button>
+        <button class="btn btn-danger" id="logoutBtn">⏻ Logout</button>
+      </div>
+    </div>
 
-      <section class="panel view-section" id="doctors">
-          <div class="panel-head">
-            <h3>Doctors</h3>
-            <span>From <code>/doctors</code></span>
+    <!-- ══════════════ OVERVIEW ══════════════ -->
+    <div id="view-overview">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue">🧑‍⚕️</div>
+          <div class="stat-info"><h3>Total Patients</h3><div class="stat-number" id="patientsCount">0</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">👨‍⚕️</div>
+          <div class="stat-info"><h3>Total Doctors</h3><div class="stat-number" id="doctorsCount">0</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">📅</div>
+          <div class="stat-info"><h3>Appointments</h3><div class="stat-number" id="appointmentsCount">0</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon amber">💳</div>
+          <div class="stat-info"><h3>Total Collected</h3><div class="stat-number" id="totalCollected">₹0</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">🏥</div>
+          <div class="stat-info"><h3>Admitted</h3><div class="stat-number" id="admittedCount">0</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">✅</div>
+          <div class="stat-info"><h3>Discharged</h3><div class="stat-number" id="dischargedCount">0</div></div>
+        </div>
+      </div>
+
+      <!-- Recent Patients -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-title-icon" style="background:#dbeafe">🧑‍⚕️</div>
+            <div><h3>Recent Patients</h3><p>Latest registered patients</p></div>
           </div>
-          <img
-            class="section-image"
-            src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=1200&q=80"
-            alt="Doctor section"
-          />
-          <form id="doctorForm" class="inline-form doctor-form">
-            <input type="text" id="doctorName" placeholder="Doctor name" required />
-            <input type="text" id="doctorSpecialization" placeholder="Specialization" required />
-            <button type="submit" class="primary-btn">Add Doctor</button>
-          </form>
-          <ul id="doctorsList" class="list"></ul>
-      </section>
-
-      <section class="panel view-section" id="appointments">
-          <div class="panel-head">
-            <h3>Appointments</h3>
-            <span>From <code>/appointments</code></span>
+          <button class="btn btn-ghost btn-sm" id="viewAllPatients">View All →</button>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Name</th><th>Age</th><th>Blood</th><th>Condition</th><th>Status</th><th>Ward/Bed</th></tr></thead>
+              <tbody id="overviewPatientsBody">
+                <tr><td colspan="7"><div class="empty-state"><div class="empty-icon">🔍</div><p>No patients yet</p></div></td></tr>
+              </tbody>
+            </table>
           </div>
-          <img
-            class="section-image"
-            src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1200&q=80"
-            alt="Appointments section"
-          />
-          <form id="appointmentForm" class="inline-form appointment-form">
-            <input type="text" id="appointmentPatientName" placeholder="Patient name" required />
-            <input type="text" id="appointmentDoctorName" placeholder="Doctor name" required />
-            <input type="date" id="appointmentDate" required />
-            <input type="time" id="appointmentTime" required />
-            <button type="submit" class="primary-btn">Book</button>
-          </form>
-          <ul id="appointmentsList" class="list"></ul>
-      </section>
-    </main>
+        </div>
+      </div>
+
+      <!-- Recent Payments -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-title-icon" style="background:#fef3c7">💳</div>
+            <div><h3>Recent Payments</h3><p>Latest fee transactions</p></div>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="viewAllPayments">View All →</button>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Patient</th><th>Type</th><th>Amount</th><th>Paid</th><th>Due</th><th>Method</th><th>Status</th></tr></thead>
+              <tbody id="overviewPaymentsBody">
+                <tr><td colspan="8"><div class="empty-state"><div class="empty-icon">💳</div><p>No payments yet</p></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ PATIENTS ══════════════ -->
+    <div id="view-patients" class="hidden">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-title-icon" style="background:#dbeafe">🧑‍⚕️</div>
+            <div><h3>Patients</h3><p>Manage all patient records</p></div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="add-form-bar">
+            <form id="patientForm">
+              <div class="form-row">
+                <input type="text"   id="patientName"      placeholder="Full name *"     required />
+                <input type="number" id="patientAge"       placeholder="Age *"           required min="1" />
+                <select id="patientGender" required>
+                  <option value="">Gender *</option>
+                  <option>Male</option><option>Female</option><option>Other</option>
+                </select>
+                <input type="tel"    id="patientPhone"     placeholder="Phone" />
+                <input type="email"  id="patientEmail"     placeholder="Email" />
+              </div>
+              <div class="form-row" style="margin-top:8px">
+                <select id="patientBloodGroup">
+                  <option value="">Blood Group</option>
+                  <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+                  <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+                </select>
+                <input type="text"   id="patientCondition" placeholder="Condition / Diagnosis" />
+                <input type="text"   id="patientAddress"   placeholder="Address" />
+                <select id="patientStatus">
+                  <option value="Active">Active</option>
+                  <option value="Admitted">Admitted</option>
+                  <option value="Discharged">Discharged</option>
+                </select>
+                <button type="submit" class="btn btn-primary">+ Add Patient</button>
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>#</th><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th>Blood</th><th>Condition</th><th>Ward/Bed</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="patientsTableBody">
+                <tr><td colspan="10"><div class="empty-state"><div class="empty-icon">🧑‍⚕️</div><p>No patients found.</p></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ DOCTORS ══════════════ -->
+    <div id="view-doctors" class="hidden">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-title-icon" style="background:#d1fae5">👨‍⚕️</div>
+            <div><h3>Doctors</h3><p>Manage medical staff</p></div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="add-form-bar">
+            <form id="doctorForm">
+              <div class="form-row">
+                <input type="text"   id="doctorName"           placeholder="Doctor name *"     required />
+                <input type="text"   id="doctorSpecialization" placeholder="Specialization *"  required />
+                <input type="text"   id="doctorQualification"  placeholder="Qualification (MBBS, MD…)" />
+                <input type="tel"    id="doctorPhone"          placeholder="Phone" />
+                <input type="email"  id="doctorEmail"          placeholder="Email" />
+              </div>
+              <div class="form-row" style="margin-top:8px">
+                <input type="number" id="doctorExperience"   placeholder="Experience (yrs)" min="0" />
+                <input type="text"   id="doctorAvailability" placeholder="Availability (Mon-Fri…)" />
+                <select id="doctorStatus">
+                  <option value="Active">Active</option>
+                  <option value="On Leave">On Leave</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+                <button type="submit" class="btn btn-primary">+ Add Doctor</button>
+              </div>
+            </form>
+          </div>
+          <div class="card-grid" id="doctorsList">
+            <div class="empty-state"><div class="empty-icon">👨‍⚕️</div><p>No doctors yet.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ APPOINTMENTS ══════════════ -->
+    <div id="view-appointments" class="hidden">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-title-icon" style="background:#ede9fe">📅</div>
+            <div><h3>Appointments</h3><p>Schedule and manage appointments</p></div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="add-form-bar">
+            <form id="appointmentForm">
+              <div class="form-row">
+                <input type="text" id="appointmentPatientName" placeholder="Patient name *" required />
+                <input type="text" id="appointmentDoctorName"  placeholder="Doctor name *"  required />
+                <input type="date" id="appointmentDate"        required />
+                <input type="time" id="appointmentTime"        required />
+              </div>
+              <div class="form-row" style="margin-top:8px">
+                <input type="text" id="appointmentReason" placeholder="Reason / Symptoms" />
+                <input type="text" id="appointmentNotes"  placeholder="Notes (optional)" />
+                <select id="appointmentStatus">
+                  <option value="Scheduled">Scheduled</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+                <button type="submit" class="btn btn-primary">+ Book</button>
+              </div>
+            </form>
+          </div>
+          <div class="card-grid" id="appointmentsList">
+            <div class="empty-state"><div class="empty-icon">📅</div><p>No appointments yet.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ PAYMENTS ══════════════ -->
+    <div id="view-payments" class="hidden">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <div class="panel-title-icon" style="background:#fef3c7">💳</div>
+            <div><h3>Fee Payments</h3><p>Record and track all patient payments</p></div>
+          </div>
+        </div>
+        <div class="panel-body">
+
+          <!-- Summary cards -->
+          <div class="pay-summary">
+            <div class="pay-summary-card billed">
+              <div class="ps-icon">🧾</div>
+              <div class="ps-info"><h4>Total Billed</h4><div class="ps-val" id="payTotalBilled">₹0</div></div>
+            </div>
+            <div class="pay-summary-card paid">
+              <div class="ps-icon">✅</div>
+              <div class="ps-info"><h4>Total Collected</h4><div class="ps-val" id="payTotalCollected">₹0</div></div>
+            </div>
+            <div class="pay-summary-card due">
+              <div class="ps-icon">⚠️</div>
+              <div class="ps-info"><h4>Total Due</h4><div class="ps-val" id="payTotalDue">₹0</div></div>
+            </div>
+          </div>
+
+          <!-- Add Payment Form -->
+          <div class="add-form-bar">
+            <form id="paymentForm">
+              <div class="form-row">
+                <select id="paymentPatientSelect" required>
+                  <option value="">Select Patient *</option>
+                </select>
+                <select id="paymentType">
+                  <option value="Consultation">Consultation</option>
+                  <option value="Admission">Admission</option>
+                  <option value="Surgery">Surgery</option>
+                  <option value="Lab Test">Lab Test</option>
+                  <option value="Pharmacy">Pharmacy</option>
+                  <option value="Discharge">Discharge</option>
+                  <option value="Other">Other</option>
+                </select>
+                <input type="number" id="paymentAmount"     placeholder="Total Amount (₹) *" required min="0" />
+                <input type="number" id="paymentPaidAmount" placeholder="Paid Amount (₹)"    min="0" />
+              </div>
+              <div class="form-row" style="margin-top:8px">
+                <select id="paymentMethod">
+                  <option value="Cash">Cash</option>
+                  <option value="Card">Card</option>
+                  <option value="UPI">UPI</option>
+                  <option value="Insurance">Insurance</option>
+                  <option value="Online">Online</option>
+                </select>
+                <select id="paymentStatus">
+                  <option value="Paid">Paid</option>
+                  <option value="Partial">Partial</option>
+                  <option value="Pending">Pending</option>
+                </select>
+                <input type="text" id="paymentDescription" placeholder="Description (optional)" />
+                <button type="submit" class="btn btn-primary">+ Record Payment</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Payments Table -->
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>#</th><th>Patient</th><th>Type</th><th>Total</th><th>Paid</th><th>Due</th><th>Method</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="paymentsTableBody">
+                <tr><td colspan="10"><div class="empty-state"><div class="empty-icon">💳</div><p>No payments recorded yet.</p></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══════════════ ADMIT MODAL ══════════════ -->
+<div class="modal-overlay hidden" id="admitModal">
+  <div class="modal-box">
+    <h3>🏥 Admit Patient</h3>
+    <p id="admitModalSubtitle">Enter ward and bed details for the patient.</p>
+    <input type="hidden" id="admitPatientId" />
+    <div class="form-group">
+      <label>Ward</label>
+      <input type="text" id="admitWard" placeholder="e.g. General, ICU, Maternity" />
+    </div>
+    <div class="form-group">
+      <label>Bed Number</label>
+      <input type="text" id="admitBedNumber" placeholder="e.g. B-12" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('admitModal')">Cancel</button>
+      <button class="btn btn-primary" id="admitConfirmBtn">Confirm Admit</button>
+    </div>
   </div>
+</div>
 
-  <div id="toast" class="toast"></div>
-  <script src="./script.js"></script>
+<!-- ══════════════ DISCHARGE MODAL ══════════════ -->
+<div class="modal-overlay hidden" id="dischargeModal">
+  <div class="modal-box">
+    <h3>✅ Discharge Patient</h3>
+    <p id="dischargeModalSubtitle">Confirm discharge and add a summary note.</p>
+    <input type="hidden" id="dischargePatientId" />
+    <div class="form-group">
+      <label>Discharge Note / Summary</label>
+      <textarea id="dischargeNote" placeholder="e.g. Patient recovered. Follow-up in 2 weeks. Prescribed medications…"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Condition at Discharge</label>
+      <select id="dischargeCondition">
+        <option value="">— Select —</option>
+        <option value="Recovered">Recovered</option>
+        <option value="Stable">Stable</option>
+        <option value="Referred">Referred to another hospital</option>
+        <option value="LAMA">Left Against Medical Advice (LAMA)</option>
+        <option value="Expired">Expired</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('dischargeModal')">Cancel</button>
+      <button class="btn btn-primary btn-discharge" id="dischargeConfirmBtn">Confirm Discharge</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAYMENT RECEIPT MODAL ══════════════ -->
+<div class="modal-overlay hidden" id="receiptModal">
+  <div class="modal-box" style="max-width:520px">
+    <h3>🧾 Payment Receipt</h3>
+    <p>Payment recorded successfully.</p>
+    <div id="receiptArea" class="receipt-box">
+      <h2>CareFlow Hospital</h2>
+      <p style="color:var(--muted);font-size:0.8rem;margin-bottom:12px" id="receiptDate"></p>
+      <div class="receipt-row"><span>Patient</span><span id="rPatient"></span></div>
+      <div class="receipt-row"><span>Payment Type</span><span id="rType"></span></div>
+      <div class="receipt-row"><span>Payment Method</span><span id="rMethod"></span></div>
+      <div class="receipt-row"><span>Description</span><span id="rDesc"></span></div>
+      <div class="receipt-row"><span>Total Amount</span><span id="rTotal"></span></div>
+      <div class="receipt-row"><span>Paid Amount</span><span id="rPaid"></span></div>
+      <div class="receipt-row"><span>Due Amount</span><span id="rDue"></span></div>
+      <div class="receipt-row"><span>Status</span><span id="rStatus"></span></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('receiptModal')">Close</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨 Print Receipt</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script src="./script.js"></script>
 </body>
 </html>

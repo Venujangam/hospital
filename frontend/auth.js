@@ -32,9 +32,11 @@ if (registerForm) {
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const payload = {
-      name: document.getElementById("registerName").value.trim(),
-      email: document.getElementById("registerEmail").value.trim(),
-      password: document.getElementById("registerPassword").value
+      name:     document.getElementById("registerName").value.trim(),
+      email:    document.getElementById("registerEmail").value.trim(),
+      password: document.getElementById("registerPassword").value,
+      phone:    document.getElementById("registerPhone")?.value.trim() || "",
+      role:     document.getElementById("registerRole")?.value || "Admin",
     };
 
     try {
